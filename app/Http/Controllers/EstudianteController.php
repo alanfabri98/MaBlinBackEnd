@@ -19,8 +19,20 @@ class EstudianteController extends Controller
 
     public function store(Request $request)
     {
-        $estudiante = Estudiante::create($request->all());
-            return response()->json($estudiante, 201);
+        /*
+        "n": "Alessandro",
+        "a": "Maza",
+        "f": "1/1/19",
+        "i": 0
+        */
+        $estudiante = Estudiante::all();
+        $us = auth()->user();
+        $estudiante->n = "";
+        $estudiante->a = $request->a;
+        $estudiante->f = $request->f;
+        $estudiante->i = $us->id;
+        //$estudiante = $request;
+        return response()->json($estudiante->all(), 201);
         /*
         $us = auth()->user();
         if($us->ro == "Admin"){
@@ -33,8 +45,9 @@ class EstudianteController extends Controller
     }
 
     public function show(Request $request){
-        $estudiantes = Estudiante::where("i","=", $request->i);
-        return response()->json($estudiantes, 200);
+        $estudiantes = Estudiante::where("i","=", $request->i)->get();
+        return response()->json($estudiantes, 200);//Empleado::where('id', 1)->get();
+        //return response()->json(Estudiante::all(), 200);
         /*
         $users = User::where("estado","=",1)->paginate(10);
         // En la vista
