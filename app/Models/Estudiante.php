@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Estudiante extends Model
 {
-    public $timestamps = false;
+    //el siguiente codigo guarda como null en las siguientes columnas created_at, updated_at
+    //public $timestamps = false;
 
     use HasFactory;
     protected $fillable = [

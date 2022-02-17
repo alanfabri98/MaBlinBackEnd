@@ -29,13 +29,13 @@ Route::group([
     Route::post('me', 'App\Http\Controllers\AuthController@me');
     Route::post('register', 'App\Http\Controllers\AuthController@register');
 
-    Route::get('est', 'App\Http\Controllers\EstudianteController@index');
-    Route::get('est/{i}', 'App\Http\Controllers\EstudianteController@show');
+    //Route::get('est', 'App\Http\Controllers\EstudianteController@index');
+    Route::get('est', 'App\Http\Controllers\EstudianteController@show');
     Route::post('est', 'App\Http\Controllers\EstudianteController@store');
     Route::put('est/{i}', 'App\Http\Controllers\EstudianteController@update');
     Route::delete('est/{i}', 'App\Http\Controllers\EstudianteController@delete');
 
-    Route::get('res', 'App\Http\Controllers\ResultadoController@index');
+    //Route::get('res', 'App\Http\Controllers\ResultadoController@index');
     Route::get('res/{i}', 'App\Http\Controllers\ResultadoController@show');
     Route::post('res', 'App\Http\Controllers\ResultadoController@store');
     Route::put('res/{i}', 'App\Http\Controllers\ResultadoController@update');

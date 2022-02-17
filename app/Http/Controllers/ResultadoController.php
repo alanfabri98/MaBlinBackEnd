@@ -9,12 +9,20 @@ class ResultadoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index']]);
+        //$this->middleware('auth:api', ['except' => ['index']]);
+        $this->middleware('auth:api');
     }
 
     public function index()
     {
         return response()->json(Resultado::all(), 200);
+    }
+
+    public function show(Request $request){
+        //$us = auth()->user();
+        $resultados = Resultado::where("i","=", $request->i)->get();
+        return response()->json($resultados, 200);//Empleado::where('id', 1)->get();
+        //return response()->json(Estudiante::all(), 200);
     }
 
     public function store(Request $request)

@@ -9,7 +9,8 @@ class EstudianteController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index']]);
+        //$this->middleware('auth:api', ['except' => ['index']]);
+        $this->middleware('auth:api');
     }
 
     public function index()
@@ -19,20 +20,17 @@ class EstudianteController extends Controller
 
     public function store(Request $request)
     {
-        /*
-        "n": "Alessandro",
-        "a": "Maza",
-        "f": "1/1/19",
-        "i": 0
-        */
-        $estudiante = Estudiante::all();
+        
+        $estudiante = $request->all();
         $us = auth()->user();
-        $estudiante->n = "";
-        $estudiante->a = $request->a;
-        $estudiante->f = $request->f;
-        $estudiante->i = $us->id;
-        //$estudiante = $request;
-        return response()->json($estudiante->all(), 201);
+        
+        $estudiante['n'] = $request->n;
+        $estudiante['a'] = $request->a;
+        $estudiante['f'] = $request->f;
+        $estudiante['i'] = $us->id;
+
+        $newEstudiante = Estudiante::create($estudiante);
+        return response()->json($newEstudiante, 201);
         /*
         $us = auth()->user();
         if($us->ro == "Admin"){
@@ -44,17 +42,11 @@ class EstudianteController extends Controller
         */
     }
 
-    public function show(Request $request){
-        $estudiantes = Estudiante::where("i","=", $request->i)->get();
+    public function show(){
+        $us = auth()->user();
+        $estudiantes = Estudiante::where("i","=", $us->id)->get();
         return response()->json($estudiantes, 200);//Empleado::where('id', 1)->get();
         //return response()->json(Estudiante::all(), 200);
-        /*
-        $users = User::where("estado","=",1)->paginate(10);
-        // En la vista
-        foreach ($users as $key => $user) {
-        // $user es una Instancia de la clase User
-        }
-        */
     }
 
     public function update(Request $request){
@@ -71,15 +63,10 @@ class EstudianteController extends Controller
             return response()->json(['error' => 'El rol no tiene permisos'], 403);
         }
     }
-/*
-        'n',
-        'a',
-        'f',
-        'i',
-*/
+    
     public function delete(string $request){
         Estudiante::destroy((int)$request);
-            return response()->json('Borrado', 204);
+        return response()->json('Borrado', 204);
         /*
         $us = auth()->user();
         if($us->ro == "Admin"){

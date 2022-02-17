@@ -15,8 +15,8 @@ class CreateResultadosTable extends Migration
     {
         Schema::create('resultados', function (Blueprint $table) {
             $table->id();
-            $table->string('t',100)->nullable();
-            $table->string('n',10)->nullable();
+            $table->string('t',6)->nullable();
+            $table->string('n',2)->nullable();
             $table->foreignId('i')
                   ->nullable()
                   ->constrained('estudiantes', 'id')

@@ -18,6 +18,7 @@ class CreateEstudiantesTable extends Migration
             $table->string('n',50)->nullable();
             $table->string('a',50)->nullable();
             $table->string('f',15)->nullable();
+            $table->timestamps();
             $table->foreignId('i')
                   ->nullable()
                   ->constrained('users', 'id')
